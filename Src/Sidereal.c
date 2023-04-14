@@ -40,7 +40,7 @@ void GetLMST(Observer_t * observer)
     while (observer->lmst > 360) {
         observer->lmst -= 360;
     }
-
+ 
     // double sid_minutes = 60*(observer->lmst/15 - (int)(observer->lmst/15));
     // double sid_seconds = 60*(sid_minutes - (int)(sid_minutes));
 
