@@ -36,12 +36,13 @@ void GetLMST(Observer_t * observer)
 
     observer->lmst = gmst + observer->longitude;
     
+    /* For the past, an addition if less than 360 deg. is necessary. */
     while (observer->lmst > 360) {
         observer->lmst -= 360;
     }
 
-    double sid_minutes = 60*(observer->lmst/15 - (int)(observer->lmst/15));
-    double sid_seconds = 60*(sid_minutes - (int)(sid_minutes));
+    // double sid_minutes = 60*(observer->lmst/15 - (int)(observer->lmst/15));
+    // double sid_seconds = 60*(sid_minutes - (int)(sid_minutes));
 
     //printf("\nLocal Mean Sidereal Time | %d:%d:%d \n", (int) observer->lmst/15, (int) sid_minutes, (int) sid_seconds);
 
