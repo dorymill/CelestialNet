@@ -82,7 +82,7 @@ typedef struct {
 /* Internal data structure */
 /**
  * @brief Data structure to pass to run logging threads,
- *        consisting of a Target_t strucutre, and pointers to
+ *        consisting of a Target_t structure, and pointers to
  *        an Observer_t and LocalTarget_t to be continuously updated
  *        for further calculation.
  *        
