@@ -1,3 +1,15 @@
+/**
+ * @file    TwoStarLog.c
+ * @author  Asmod
+ * @brief   Example usage of code implentation in C to log the position
+ *          of astronomical targets in an observer's local sky.
+ * @version 0.1
+ * @date    2023-04-14
+ * 
+ * @copyright Copyright (c) 2023
+ * 
+ */
+
 
 #include "Sidereal.h"
 #include <windows.h>

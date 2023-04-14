@@ -2,7 +2,10 @@
 #define SIDEREAL_H
 
 /* Time Structures */
-
+/**
+ * @brief Clock Time Structure
+ * 
+ */
 typedef struct {
 
     double hours;
@@ -11,6 +14,11 @@ typedef struct {
 
 } Time_t;
 
+
+/**
+ * @brief Calender Time Structure
+ * 
+ */
 typedef struct {
 
     int year;
@@ -23,6 +31,16 @@ typedef struct {
 
 /* Targeting structures */
 
+/**
+ * @brief Structure containing observer based 
+ *        parameters required for placing a
+ *        target in the local sky, namely,
+ *        the precise time of observation--Date_t,
+ *        --the Local Mean Sidereal Time--as estiamted
+ *        using the Astronomer's Almanac ala 2023 to 2nd Order,
+ *        --, and the decimal Julian date.
+ * 
+ */
 typedef struct {
 
     Date_t date;
@@ -33,6 +51,12 @@ typedef struct {
 
 } Observer_t;
 
+/**
+ * @brief Target structure containing the 
+ *        Equatorial Coordinates and name 
+ *        of a target.
+ * 
+ */
 typedef struct {
 
     char * name;
@@ -41,6 +65,13 @@ typedef struct {
 
 } Target_t;
 
+
+/**
+ * @brief Structure containing the local coordiantes
+ *        of a given Target_t in a given Observer_t's
+ *        sky, in Azimuth and Altitude.
+ * 
+ */
 typedef struct {
 
     double azimuth;
@@ -49,7 +80,14 @@ typedef struct {
 } LocalTarget_t;
 
 /* Internal data structure */
-
+/**
+ * @brief Data structure to pass to run logging threads,
+ *        consisting of a Target_t strucutre, and pointers to
+ *        an Observer_t and LocalTarget_t to be continuously updated
+ *        for further calculation.
+ *        
+ * 
+ */
 typedef struct {
 
     Target_t       target;

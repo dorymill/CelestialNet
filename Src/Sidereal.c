@@ -6,7 +6,9 @@
 #define PI 3.1415926535897932384626433832
 
 /**
- * @brief 
+ * @brief Takes a pointer to an observer structure as input, 
+ *        and populates the observer Local Mean Sidereal Time field 
+ *        with the time at call.
  * 
  * @param observer Pointer to observer structure 
  */
@@ -46,7 +48,9 @@ void GetLMST(Observer_t * observer)
 }
 
 /**
- * @brief Get the Julian object
+ * @brief Takes a pointer to an observer structure and 
+ *        populates the the Julian Date at the time of
+ *        call.
  * 
  * @param observer Pointer to observer structure 
  */
@@ -80,11 +84,14 @@ void GetJulian(Observer_t * observer)
 }
 
 /**
- * @brief 
+ * @brief The Magic: Here, we utilize the coordinate
+ *        transformation between Equatorial and Horizontal
+ *        cooridnates as show by comment (I), and store the
+ *        result in a local target structure. (Attach this to Target_t?)
  * 
- * @param target 
+ * @param target   Structure containing target equatorial coodinates
  * @param observer Pointer to observer structure 
- * @param result 
+ * @param result   Structure containing target local horizontal coordinates
  */
 void EquatorialToHorizontal(Target_t target, Observer_t * observer, LocalTarget_t * result)
 {
@@ -120,7 +127,7 @@ void EquatorialToHorizontal(Target_t target, Observer_t * observer, LocalTarget_
     lat   *= PI/180;
 
     
-    /* Determine azimuth and altitude (rad) */
+    /* (I) Determine azimuth and altitude (rad) */
     x = -sin(lat)*cos(decl)*cos(hrang) + cos(lat)*sin(decl);
     y = cos(decl)*sin(hrang);
     
@@ -141,7 +148,8 @@ void EquatorialToHorizontal(Target_t target, Observer_t * observer, LocalTarget_
 }
 
 /**
- * @brief 
+ * @brief Updates the observer structure time parameters with the
+ *        local system time down to the second.
  * 
  * @param observer Pointer to observer structure 
  */
@@ -164,12 +172,12 @@ void updateObserver(Observer_t * observer)
 }
 
 /**
- * @brief 
+ * @brief Helper function to neatly set parameters of the Target structure.
  * 
- * @param target 
- * @param name 
- * @param rightasc 
- * @param declination 
+ * @param target      Pointer to target structure
+ * @param name        String name of target
+ * @param rightasc    Right Ascension of target
+ * @param declination Declination of target
  */
 void initTarget(Target_t *target, char * name, double rightasc, double declination) 
 {
@@ -181,11 +189,11 @@ void initTarget(Target_t *target, char * name, double rightasc, double declinati
 }
 
 /**
- * @brief 
+ * @brief Helper function to neatly set parameters of the observer structure
  * 
- * @param observer Pointer to observer structure 
- * @param longitude 
- * @param latitude 
+ * @param observer  Pointer to observer structure 
+ * @param longitude Observer longitude 
+ * @param latitude  Observer latitude
  */
 void initObserver(Observer_t *observer, double longitude, double latitude) 
 {
@@ -196,12 +204,19 @@ void initObserver(Observer_t *observer, double longitude, double latitude)
 }
 
 /**
- * @brief 
+ * @brief Function pointer for threads to log the position of 
+ *        a target in an observer's local sky every minute for
+ *        24 hours, saving the result to a CSV with the target
+ *        name.
  * 
- * @param inp_thread_data 
- * @return void* 
+ * @param inp_thread_data Pointer to structure containing the necessary elements
+ *                        to log a target: a Target structure, Observer Structure,
+ *                        and Local Target Structure for the associated Target. (Again,
+ *                        maybe merge Target and Local Target?)
+ * 
+ * @return void*          Rien!
  */
-void *recordLoop (void *inp_thread_data) /* TO-DO: Create local copy of observer for thread. */
+void *recordLoop (void *inp_thread_data)
 {
     /* Extract data from input struct */
     thread_data_t *locThread_data;
