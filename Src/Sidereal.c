@@ -87,7 +87,7 @@ void GetJulian(Observer_t * observer)
 /**
  * @brief The Magic: Here, we utilize the coordinate
  *        transformation between Equatorial and Horizontal
- *        coordinates as show by comment (I), and store the
+ *        coordinates as shown by comment (I), and store the
  *        result in a local target structure. (Attach this to Target_t?)
  * 
  * @param target   Structure containing target equatorial coodinates
