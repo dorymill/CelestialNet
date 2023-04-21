@@ -94,23 +94,25 @@ typedef struct {
     Observer_t    *observer;
     LocalTarget_t *local_target;
 
-} thread_data_t;
+} ThreadData_t;
 
 /* Function prototypes */
 
-void EquatorialToHorizontal(Target_t target, Observer_t * observer, LocalTarget_t * result);
+void EquatorialToHorizontal(Target_t target, Observer_t *observer, LocalTarget_t *result);
 
-void GetLMST(Observer_t * observer);
+void GetLMST(Observer_t *observer);
 
-void GetJulian(Observer_t * observer);
+void GetJulian(Observer_t *observer);
 
-void updateObserver(Observer_t * observer);
+void updateObserver(Observer_t *observer);
 
-void updateAzEl(Observer_t * observer, Target_t target, LocalTarget_t * localTarget);
+void updateAzEl(Observer_t *observer, Target_t target, LocalTarget_t *localTarget);
 
-void initTarget(Target_t *target, char * name, double rightasc, double declination);
+void initTarget(Target_t *target, char *name, double rightasc, double declination);
 
 void initObserver(Observer_t *observer, double longitude, double latitude);
+
+void initThreadData(ThreadData_t *threadData, Target_t target, Observer_t *observer, LocalTarget_t *localTarget);
 
 void *recordLoop (void *inp_thread_data);
 

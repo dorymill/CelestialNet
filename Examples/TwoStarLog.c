@@ -30,30 +30,24 @@ void main (void) {
     Target_t      rigel;
     LocalTarget_t loc_rigel;
 
+    pthread_t loggerThread1;
+    pthread_t loggerThread2;
+
+    ThreadData_t l1Data;
+    ThreadData_t l2Data;
+
     /* Data structure initialization routines. */
     initObserver(&observer, -90, 40);
 
     initTarget(&betelgeuese, "Betelgeuese", 75.91944444,   7.4072222);
     initTarget(&rigel,       "Rigel",       75.242222222, -8.201666667);
 
-    
-    /* Instantiate thread and create input data structure. */
-    pthread_t loggerThread1;
-    pthread_t loggerThread2;
+    initThreadData(&l2Data, rigel,       &observer, &loc_rigel);
+    initThreadData(&l2Data, betelgeuese, &observer, &loc_betelgeuese);
 
-    thread_data_t t1Data;
-    thread_data_t t2Data;
-
-    t2Data.target       = rigel;
-    t2Data.observer     = &observer;
-    t1Data.local_target = &loc_rigel;
-
-    t1Data.target       = betelgeuese;
-    t1Data.observer     = &observer;
-    t1Data.local_target = &loc_betelgeuese;
-
-    pthread_create(&loggerThread1, NULL, &recordLoop, (void *) &t1Data);
-    pthread_create(&loggerThread2, NULL, &recordLoop, (void *) &t2Data);
+    /* Launch the threads of fate! */
+    pthread_create(&loggerThread1, NULL, &recordLoop, (void *) &l1Data);
+    pthread_create(&loggerThread2, NULL, &recordLoop, (void *) &l2Data);
 
     pthread_join(loggerThread1, NULL);
     pthread_join(loggerThread2, NULL);

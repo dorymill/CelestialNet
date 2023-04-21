@@ -12,7 +12,7 @@
  * 
  * @param observer Pointer to observer structure 
  */
-void GetLMST(Observer_t * observer)
+void GetLMST(Observer_t *observer)
 {
 
     double gmst;
@@ -55,7 +55,7 @@ void GetLMST(Observer_t * observer)
  * 
  * @param observer Pointer to observer structure 
  */
-void GetJulian(Observer_t * observer)
+void GetJulian(Observer_t *observer)
 {
     double decimalDays = (long double)((observer->date.day) + 
                          (observer->date.time.hours/24) + 
@@ -94,7 +94,7 @@ void GetJulian(Observer_t * observer)
  * @param observer Pointer to observer structure 
  * @param result   Structure containing target local horizontal coordinates
  */
-void EquatorialToHorizontal(Target_t target, Observer_t * observer, LocalTarget_t * result)
+void EquatorialToHorizontal(Target_t target, Observer_t *observer, LocalTarget_t *result)
 {
 
     /* Get current time */
@@ -154,7 +154,7 @@ void EquatorialToHorizontal(Target_t target, Observer_t * observer, LocalTarget_
  * 
  * @param observer Pointer to observer structure 
  */
-void updateObserver(Observer_t * observer)
+void updateObserver(Observer_t *observer)
 {
     /* Update Observer time and date with UTC time parameters from the machine. */
     time_t utc = time(NULL);
@@ -180,7 +180,7 @@ void updateObserver(Observer_t * observer)
  * @param rightasc    Right Ascension of target
  * @param declination Declination of target
  */
-void initTarget(Target_t *target, char * name, double rightasc, double declination) 
+void initTarget(Target_t *target, char *name, double rightasc, double declination) 
 {
     
     target->name = name;
@@ -205,6 +205,23 @@ void initObserver(Observer_t *observer, double longitude, double latitude)
 }
 
 /**
+ * @brief Helper function to neatly set parameters of the thead input data structure.
+ * 
+ * @param threadData  Pointer to thread data structure
+ * @param target      Target structure
+ * @param observer    Pointer to observer structure
+ * @param localTarget Pointer to local target structure
+ */
+void initThreadData(ThreadData_t *threadData, Target_t target, Observer_t *observer, LocalTarget_t *localTarget)
+{
+
+    threadData->target       = target;
+    threadData->observer     = observer;
+    threadData->local_target = localTarget;
+
+}
+
+/**
  * @brief Function pointer for threads to log the position of 
  *        a target in an observer's local sky every minute for
  *        24 hours, saving the result to a CSV with the target
@@ -220,8 +237,8 @@ void initObserver(Observer_t *observer, double longitude, double latitude)
 void *recordLoop (void *inp_thread_data)
 {
     /* Extract data from input struct */
-    thread_data_t *locThread_data;
-    locThread_data = (thread_data_t *) inp_thread_data;
+    ThreadData_t *locThread_data;
+    locThread_data = (ThreadData_t *) inp_thread_data;
 
     Target_t             target = locThread_data->target;
     Observer_t        *observer = locThread_data->observer;
