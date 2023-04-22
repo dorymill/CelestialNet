@@ -1,6 +1,8 @@
 #ifndef SIDEREAL_H
 #define SIDEREAL_H
 
+#include <pthread.h>
+
 /* Time Structures */
 /**
  * @brief Clock Time Structure
@@ -43,7 +45,10 @@ typedef struct {
  */
 typedef struct {
 
+    pthread_mutex_t observerlock;
+    
     Date_t date;
+    
     double longitude;
     double latitude;
     double lmst;

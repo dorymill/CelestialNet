@@ -1,7 +1,8 @@
-#include "Sidereal.h"
+#include "../Inc/Sidereal.h"
 #include <stdio.h>
 #include <time.h>
 #include <math.h>
+#include <pthread.h>
 
 #define PI 3.1415926535897932384626433832
 
@@ -244,6 +245,12 @@ void *recordLoop (void *inp_thread_data)
     Observer_t        *observer = locThread_data->observer;
     LocalTarget_t *local_target = locThread_data->local_target;
 
+    /* Initialize the observer's mutex. */
+     if(pthread_mutex_init(&observer->observerlock, NULL) != 0) {
+         printf("[-] Failed to initialize mutex for target | %s.\n", target.name);
+         return NULL;
+     }
+
     /* Open file for logging and print header. */
     FILE *fptr = NULL;
     fptr = fopen(target.name, "w+");
@@ -260,8 +267,14 @@ void *recordLoop (void *inp_thread_data)
 
     for (int counter = 0; counter < 1440; counter++){
 
+        /* Lock the mutex to prevent collision. */
+        pthread_mutex_lock(&observer->observerlock);
+
         /* Update data and log it to file. */
         EquatorialToHorizontal(target, observer, local_target);
+
+        /* Unlock the mutex. */
+        pthread_mutex_unlock(&observer->observerlock);
 
         fprintf(fptr,"%f,%f\n", local_target->azimuth, local_target->altitude);
 
@@ -276,4 +289,7 @@ void *recordLoop (void *inp_thread_data)
     /* Clean up shop. */
     fclose(fptr);
     printf("[+] %s logging complete.\n", target.name);
+    pthread_mutex_destroy(&observer->observerlock);
+
+    return NULL;
 }

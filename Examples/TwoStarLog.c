@@ -11,7 +11,7 @@
  */
 
 
-#include "Sidereal.h"
+#include "../Inc/Sidereal.h"
 #include <windows.h>
 #include <stdlib.h>
 #include <stdio.h>
@@ -42,7 +42,7 @@ void main (void) {
     initTarget(&betelgeuese, "Betelgeuese", 75.91944444,   7.4072222);
     initTarget(&rigel,       "Rigel",       75.242222222, -8.201666667);
 
-    initThreadData(&l2Data, rigel,       &observer, &loc_rigel);
+    initThreadData(&l1Data, rigel,       &observer, &loc_rigel);
     initThreadData(&l2Data, betelgeuese, &observer, &loc_betelgeuese);
 
     /* Launch the threads of fate! */
