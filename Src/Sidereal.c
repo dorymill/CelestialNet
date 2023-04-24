@@ -288,7 +288,9 @@ void *recordLoop (void *inp_thread_data)
 
     /* Clean up shop. */
     fclose(fptr);
+
     printf("[+] %s logging complete.\n", target.name);
+    
     pthread_mutex_destroy(&observer->observerlock);
 
     return NULL;

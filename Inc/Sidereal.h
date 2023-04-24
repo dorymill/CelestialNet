@@ -54,6 +54,8 @@ typedef struct {
     double lmst;
     double julian;
 
+    Observer_t *next;
+
 } Observer_t;
 
 /**
@@ -119,8 +121,6 @@ void initObserver(Observer_t *observer, double longitude, double latitude);
 
 void initThreadData(ThreadData_t *threadData, Target_t target, Observer_t *observer, LocalTarget_t *localTarget);
 
-/* TODO: A semaphore needs to be added to handle a single
-         observer logging multiple targets. */
 void *recordLoop (void *inp_thread_data);
 
 #endif
