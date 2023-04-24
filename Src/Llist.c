@@ -5,7 +5,7 @@
 #include <malloc.h>
 #include <stdlib.h>
 
-void insert (Target_t *head, Target_t target)
+void insert (Target_t *tail, Target_t target)
 {
 
     /* Allocate memory for a new node in the list */
@@ -23,32 +23,32 @@ void insert (Target_t *head, Target_t target)
     /* Point the current head's next element
        to the address of the new element.
     */
-    head->next = new;
+    tail->next = new;
 
     /* Set the head to the new element */
-    head = new;
+    tail = new;
 
 }
 
-void delete (Target_t *tail)
+void delete (Target_t *head)
 {
     Target_t *temp = NULL;
 
-    if (tail == NULL) {
+    if (head == NULL) {
         return;
     }
 
-    temp = tail;
+    temp = head;
 
-    tail = tail->next;
+    head = head->next;
 
     free(temp);
 }
 
-void printList (Target_t *tail) {
+void printList (Target_t *head) {
 
     // If the pointer is null, we have nothing.
-    if (tail == NULL){
+    if (head == NULL){
         printf("\n[-] List is empty\n");
 
 
@@ -56,13 +56,13 @@ void printList (Target_t *tail) {
 
         // While we are not at the end of the list
         printf("\n[+] Targets | \n");
-        while( tail != NULL) {
+        while( head != NULL) {
 
             // Show the current value.
-            printf("[+] %s\n", tail->name);
+            printf("[+] %s\n", head->name);
 
             // Advance the pointer to the next list address.
-            tail = tail->next;
+            head = head->next;
 
         }
 

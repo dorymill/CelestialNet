@@ -3,8 +3,8 @@
 
 #include "Sidereal.h"
 
-void insert (Target_t *head, Target_t target);
-void delete (Target_t *tail);
-void printList (Target_t *tail);
+void insert (Target_t *tail, Target_t target);
+void delete (Target_t *head);
+void printList (Target_t *head);
 
 #endif
