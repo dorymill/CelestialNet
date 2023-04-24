@@ -54,8 +54,6 @@ typedef struct {
     double lmst;
     double julian;
 
-    Observer_t *next;
-
 } Observer_t;
 
 /**
@@ -65,10 +63,13 @@ typedef struct {
  * 
  */
 typedef struct {
+    
+    Target_t *next;
 
     char * name;
     double ra;
     double decl;
+
 
 } Target_t;
 
