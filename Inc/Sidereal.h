@@ -62,14 +62,13 @@ typedef struct {
  *        of a target.
  * 
  */
-typedef struct {
+typedef struct Target_t {
     
-    Target_t *next;
+    struct Target_t *next;
 
     char * name;
     double ra;
     double decl;
-
 
 } Target_t;
 
